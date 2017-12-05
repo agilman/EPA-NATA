@@ -3,18 +3,59 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="/static/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/static/node_modules/leaflet/dist/leaflet.css">
+  
   <title>Hello WOrld</title>
 </head>
 
 <body  ng-controller="mainController">
-  Hello TEST
-  
 
+  <div class="container" ng-controller="tractsController">
+    <div class="row">
+      <div class="col-lg-4">
+	<div class="form-group">
+	  <label for="stateSelect">Select a State:</label>
+	  <select id="stateSelect" class="form-control" ng-model="selectedState"  ng-change="changeState(selectedState)">
+	    <option ng-repeat="state in states track by state.stateFP" ng-value="state.stateFP" ng-init="selectedState=41">
+	      {[{ state.stateName }]}
+	    </option>
+	  </select>
+	</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4">
+	<div class="form-group">
+	  <label for="countySelect">Select a County:</label>
+	  <select id="countySelect" class="form-control" ng-model="selectedCounty"  ng-change="changeCounty(selectedCounty)">
+	    <option ng-repeat="county in counties track by county.countyFP" ng-value="county.countyFP">
+	      {[{ county.countyName }]}
+	    </option>
+	  </select>	  
+	</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-10">
+	test
+	<leaflet height="480px" width="640px"></leaflet>
+      </div>
+    </div>
+	  
+  </div>
+
+  <script src="/static/node_modules/leaflet/dist/leaflet.js"></script>
   <script src="/static/node_modules/angular/angular.min.js"></script>
-  <script src="/static/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script src="/static/node_modules/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
   
+  
+  <script src="/static/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+ 
   <script src="/static/app/app.js"></script>
   <script src="/static/app/mainController.js"></script>
+  <script src="/static/app/components/tractsController.js"></script>
   
 </body>
 

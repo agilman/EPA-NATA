@@ -18,10 +18,7 @@ def countyDiesel(request,countyId=None,stateId=None):
         tracts = Tract.objects.filter(stateFP=stateId).filter(countyFP=countyId)
         tractsSerialized = DieselSerializer(tracts,many=True)
 
-        
-        print(dir(tracts.first()))
         return JsonResponse(tractsSerialized.data, safe=False)
-
 
 @csrf_exempt
 def stateCounties(request, stateId=None):

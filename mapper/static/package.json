@@ -10,6 +10,7 @@
   "license": "MIT",
   "dependencies": {
     "angular": "^1.6.7",
+    "angular-leaflet-directive": "^0.10.0",
     "angular-ui-bootstrap": "^2.5.6",
     "bootstrap": "^3.3.7"
   }
