@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+from nataMaps import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url('admin/', admin.site.urls),
+
+    url(r'^$', views.index),
+
+    url(r'^api/diesel/(?P<stateId>\d+)/(?P<countyId>\d+)/', views.countyDiesel),
+    url(r'^api/stateCounties/(?P<stateId>\d+)/', views.stateCounties),
+    url(r'^api/states/', views.states),
 ]

@@ -37,7 +37,7 @@ conn = sqlite3.connect('db.sqlite3')
 c = conn.cursor()
 
 def addToDb(tract):
-    c.execute("INSERT INTO nataMaps_tract (stateFP, countyFP, geoid) VALUES(%s,%s,%s)" %(tract[0],tract[1],tract[2]) ) 
+    c.execute('INSERT INTO nataMaps_tract (stateFP, countyFP, geoid) VALUES(%s,%s,"%s")' %(tract[0],tract[1],tract[2]) ) 
 
     tractId = c.lastrowid
     for coordPair in tract[3]:
