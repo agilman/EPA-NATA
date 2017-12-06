@@ -13,8 +13,8 @@ def parseCoordinates(coords):
     latlngPairs = []
           
     for i in range(int(len(myCoords)/2)):
-        lat = myCoords[i*2].strip('0.0 ')
-        lng = myCoords[i*2+1]
+        lng = myCoords[i*2].strip('0.0 ')
+        lat = myCoords[i*2+1]
         latlngPairs.append((lat,lng))
 
     return latlngPairs

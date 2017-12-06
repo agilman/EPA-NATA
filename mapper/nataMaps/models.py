@@ -12,10 +12,10 @@ class Tract(models.Model):
 
 class TractPoint(models.Model):
     tract = models.ForeignKey(Tract,on_delete="cascade")
-    lat = models.DecimalField (max_digits=10, decimal_places=3)
-    lng = models.DecimalField (max_digits=10, decimal_places=3)
+    lat = models.DecimalField (max_digits=9, decimal_places=6)
+    lng = models.DecimalField (max_digits=9, decimal_places=6)
 
 class DieselPM(models.Model):
     tract = models.ForeignKey(Tract,on_delete="cascade")
-    total_conc = models.DecimalField(max_digits=7,decimal_places=1)
+    total_conc = models.DecimalField(max_digits=4,decimal_places=2)
     
