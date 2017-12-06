@@ -36,8 +36,26 @@ mapper.controller("tractsController",['$scope','$log','$http','leafletData',func
 		
 	    }
 
-	    var polygonOptions = { color:'red',
-				   weight:2}
+	    
+	    var polygonOptions = { color:'black',
+				   weight:2,
+				   fillOpacity: 0.75}
+	    
+
+	    
+	    if (t.diesel_conc[0].total_conc<2.5){
+		polygonOptions.color="red";
+	    }
+	    
+	    if (t.diesel_conc[0].total_conc<2){
+		polygonOptions.color="orange";
+	    }
+	    
+	    if(t.diesel_conc[0].total_conc<0.5){
+		polygonOptions.color="green";
+	    }
+
+	    
 	    var polygon = L.polygon(latlngs, polygonOptions) ;//.addTo(tractsLayer);
 
 	    polygon.addTo(tractsLayer);
