@@ -21,13 +21,15 @@ tractLines = f.readlines()
 
 def addToDb(geoid,conc):
     c.execute(str('SELECT id FROM nataMaps_tract WHERE geoid="%s"' %(geoid) ))
-    tractId = c.fetchone()[0]
+    tmp = c.fetchone()
+    if tmp:
+        tractId = tmp[0]
 
-    insertLine = str("INSERT INTO nataMaps_dieselpm (tract_id,total_conc) VALUES(%s,'%s')" %(tractId,conc) ) 
+        insertLine = str("INSERT INTO nataMaps_dieselpm (tract_id,total_conc) VALUES(%s,'%s')" %(tractId,conc) ) 
 
-    #update population info for tract based on info from diesel file...
+        #update population info for tract based on info from diesel file...
     
-    c.execute(insertLine)
+        c.execute(insertLine)
     
 #on first pass, fill data about state name, county name and tract population
 stateData = {}
@@ -46,7 +48,7 @@ for tract in tractLines:
             stateFP = geoid[:2]
             county = str(d[2][1:-1])
             countyFP = int(geoid[2:5])
- 
+
             addToDb(geoid,conc)
             if stateFP not in stateData:
                 stateLine = str('UPDATE nataMaps_tract SET stateName="%s" WHERE stateFP=%s;' %(state,stateFP))
@@ -77,8 +79,6 @@ for tract in tractLines:
                         populationLine = str('UPDATE nataMaps_tract SET population="%s" WHERE geoid="%s";' %(population,geoid))
                         c.execute(populationLine)
                         stateData[stateFP]['counties'][countyFP]['tracts'][geoid] = population
-
-#print(stateData)
 
 f.close()
 conn.commit()
