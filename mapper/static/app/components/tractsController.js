@@ -50,29 +50,40 @@ mapper.controller("tractsController",['$scope','$log','$http','leafletData',func
 				   fillOpacity: 0.75}
 	    
 
-	    
-	    if (t.diesel_conc[0].total_conc<3){
-		polygonOptions.color="red";
-	    }
-	    
-	    if (t.diesel_conc[0].total_conc<2){
-		polygonOptions.color="orange";
-	    }
+	    if (t.diesel_conc[0] == null){
+		polygonOptions.color="grey";
 
-	    if (t.diesel_conc[0].total_conc<1){
-		polygonOptions.color="blue";
+		var polygon = new L.polygon(latlngs, polygonOptions).on('click',$scope.tractClick) ;//.addTo(tractsLayer);
+		polygon.diesel_conc = "unknown";
+		polygon.tractId  = t.geoid;
+		polygon.population = t.population;
+		
+		polygon.addTo(tractsLayer);
+		
+	    }else{
+		if (t.diesel_conc[0].total_conc<3){
+		    polygonOptions.color="red";
+		}
+		
+		if (t.diesel_conc[0].total_conc<2){
+		    polygonOptions.color="orange";
+		}
+		
+		if (t.diesel_conc[0].total_conc<1){
+		    polygonOptions.color="blue";
+		}
+		
+		if(t.diesel_conc[0].total_conc<0.5){
+		    polygonOptions.color="green";
+		}
+		
+		var polygon = new L.polygon(latlngs, polygonOptions).on('click',$scope.tractClick) ;//.addTo(tractsLayer);
+		polygon.diesel_conc = t.diesel_conc[0].total_conc;
+		polygon.tractId  = t.geoid;
+		polygon.population = t.population;
+		
+		polygon.addTo(tractsLayer);
 	    }
-	    
-	    if(t.diesel_conc[0].total_conc<0.5){
-		polygonOptions.color="green";
-	    }
-
-	    var polygon = new L.polygon(latlngs, polygonOptions).on('click',$scope.tractClick) ;//.addTo(tractsLayer);
-	    polygon.diesel_conc = t.diesel_conc[0].total_conc;
-	    polygon.tractId  = t.geoid;
-	    polygon.population = t.population;
-	    
-	    polygon.addTo(tractsLayer);
 	}
     };
 
