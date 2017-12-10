@@ -16,7 +16,7 @@
 	<div class="form-group">
 	  <label for="stateSelect">Select a State:</label>
 	  <select id="stateSelect" class="form-control" ng-model="selectedState"  ng-change="changeState(selectedState)">
-	    <option ng-repeat="state in states track by state.stateFP" ng-value="state.stateFP" ng-init="selectedState=41">
+	    <option ng-repeat="state in states track by state.stateFP" ng-value="state.stateFP">
 	      {[{ state.stateName }]}
 	    </option>
 	  </select>
@@ -38,8 +38,15 @@
     </div>
 
     <div class="row">
-      <div class="col-lg-10">
-	<leaflet height="480px" width="640px"></leaflet>
+      <div class="col-lg-8">
+	<leaflet height="480px" width="700px" center="center"></leaflet>
+      </div>
+      <div class="col-lg-3">
+	<div ng-show="tractId!=null">
+	  <h4><b><u>Tract {[{ tractId }]} </u></b></h4>
+	  <p><b>Population {[{ population }]}</b> </p>
+	  <p><b>DieselPM Concentration: {[{ diesel_conc }]}</b></p>
+	</div>
       </div>
     </div>
 
@@ -54,17 +61,14 @@
 	Red   2 - 3<br>
 	Orange   1 - 2<br>
 	Blue   0.5 - 1<br>
-	Green   Less than  0.5
-	
+	Green   Less than  0.5	
       </div>
     </div>
   </div>
 
   <script src="/static/node_modules/leaflet/dist/leaflet.js"></script>
   <script src="/static/node_modules/angular/angular.min.js"></script>
-  <script src="/static/node_modules/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>
-  
-  
+  <script src="/static/node_modules/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script>  
   <script src="/static/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
  
   <script src="/static/app/app.js"></script>

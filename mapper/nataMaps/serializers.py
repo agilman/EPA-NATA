@@ -18,7 +18,7 @@ class DieselSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Tract
-        fields = ['id','countyFP','stateFP','geoid','polygon','diesel_conc']
+        fields = ['id','countyFP','stateFP','geoid','polygon','diesel_conc','population']
 
 class CountiesSerializer(serializers.ModelSerializer):
     class Meta:

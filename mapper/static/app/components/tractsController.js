@@ -10,6 +10,14 @@ mapper.controller("tractsController",['$scope','$log','$http','leafletData',func
 	tractsLayer = new L.FeatureGroup();
 	tractsLayer.addTo(map);
     });
+
+    //center map
+    angular.extend($scope, {
+	center: {
+	    lat: 40.0,
+	    lng: -96,
+	    zoom: 4
+	}});
     
     
     $scope.changeState = function(data){
@@ -59,16 +67,29 @@ mapper.controller("tractsController",['$scope','$log','$http','leafletData',func
 		polygonOptions.color="green";
 	    }
 
+	    var polygon = new L.polygon(latlngs, polygonOptions).on('click',$scope.tractClick) ;//.addTo(tractsLayer);
+	    polygon.diesel_conc = t.diesel_conc[0].total_conc;
+	    polygon.tractId  = t.geoid;
+	    polygon.population = t.population;
 	    
-	    var polygon = L.polygon(latlngs, polygonOptions) ;//.addTo(tractsLayer);
-
 	    polygon.addTo(tractsLayer);
 	}
+    };
+
+    $scope.tractClick= function(tract){
+	$scope.tractId = tract.target.tractId;
+	$scope.diesel_conc = tract.target.diesel_conc;
+	$scope.population = tract.target.population;
     };
     
     $scope.changeCounty = function(countyId){
 	//clear layer...
 	tractsLayer.clearLayers();
+	//clear tract info...
+	$scope.tractId = null;
+	$scope.diesel_conc = null;
+	$scope.population = null;
+	
 	$http.get('/api/diesel/'+$scope.selectedState+'/'+countyId).then(function(data){
 	    $scope.rawTractsData = data.data;
 
